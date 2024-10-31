@@ -28,9 +28,8 @@ class loginForm(FlaskForm):
         if user_object is None:
            raise ValidationError("你的電子信箱錯誤！")
         if user_object.username != self.username.data:
-           raise ValidationError("使用者和電子信箱不符合！")
-        # if user_object.username != self.username.data:
-        #    raise ValidationError("你的電子信箱錯誤！")
+           raise ValidationError("電子信箱和使用者不符合！")
+
         
     # def validate_login(self):
     #     if not super().validate():

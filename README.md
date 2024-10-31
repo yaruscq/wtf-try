@@ -1,0 +1,1 @@
+This is a practice of flask-wft, flask-login and flask socketio.
