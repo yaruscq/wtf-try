@@ -1,15 +1,75 @@
-{% extends 'base.html' %}
 
-{% block title %}chatroom{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+</head>
+<body>
 
-{% block content %} 
 
-	<h2>Hi {{ current_user.username.capitalize() }}! {{ msg }}</h2>
-	<p><button onclick="window.location.href='{{ url_for('main.logout')}}'">登 出</button></p>
-	
-	<div>
-		
-	</div>
-	
+    <!-- Navigation bar -->
+    <nav>
 
-{% endblock %} 
+    </nav>
+    
+    
+    <div id="main-section">
+        <!-- Room selection -->
+        <nav id="sidebar"></nav>
+        <!-- Message area -->
+        <div id="rightside-pannel">
+            <h2>Hi {{ current_user.username.capitalize() }}! {{ msg }}</h2>
+            <!-- Display message -->
+            <div id="display-message-section">
+
+            </div>
+            <!-- Input message -->
+            <div id="input-area">
+                <input type="text" id="user_message" placeholder="Type here..." autocomplete="off">
+                <button type="button" id="send_message">送 出</button><button onclick="window.location.href='{{ url_for('main.logout')}}'">登 出</button>
+            </div>
+        </div>
+    </div>  
+
+
+
+
+
+<!-- SocketIO JS 不可以包括 type="text/javascript"-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<!-- SocketIO JS 
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>-->
+<!-- Custom SocketIO JS -->
+<script src="{{ url_for('static', filename='scripts/socketio.js') }}"></script>
+<!-- 
+
+<script src="{{ url_for('static', filename='scripts/socketio.js') }}"></script> 
+<script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+        const socket = io();
+
+    // Setup a pre-defined event bucket called 'connect' at the server side in JSds
+    
+    //For testing
+    socket.on('connect', () => { // client connected, and send 'connected' to the server
+        // since 'send()' is used here, the msg will be sent to the server into a pre-defined bucket 'message'
+        socket.send("我連上了！");
+    });
+
+    // 來自 server 的 message event 給 client，告訴他(client)，已經收到他傳來的 "我連上了！"
+    socket.on('message', data => {
+        console.log(`Message received: ${data}`);
+    })
+
+    socket.on('some-event', data => {
+        console.log(data);
+    })
+})
+</script>-->
+    
+</body>
+</html>

@@ -1,3 +1,5 @@
+#wtfapp/routes.py
+
 import os
 from flask import Blueprint, render_template, redirect, flash, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user

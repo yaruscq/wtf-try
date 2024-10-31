@@ -1,8 +1,16 @@
+#wtfapp/__init__.py
+
 from flask import Flask, make_response
 from .routes import main
 from flask_login import LoginManager, login_user, current_user, set_login_view
 from .config import Config
+
+from .events import *
+from . import socketio
+# models 不可在 .events 和 socketio 之前
 from .models import User, users, get_user_by_username
+
+
 
 login_manager = LoginManager()
 
@@ -24,6 +32,8 @@ def create_app():
 	login_manager.init_app(app)
 	login_manager.login_view = 'main.index'
 	login_manager.login_message = "先登入，才能進去聊天室！"
+
+	socketio.init_app(app)
 
 	# app.config['SECRET_KEY'] = 'secret'
 	from .routes import main
