@@ -1,5 +1,5 @@
 from wtfapp import create_app
-
+from wtfapp. import  
 
 app = create_app()
 
