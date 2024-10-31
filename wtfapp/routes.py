@@ -7,10 +7,6 @@ from .models import get_user_by_username, User, users
 main = Blueprint('main', __name__)
 
 
-
-
-
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
 	form = loginForm()
@@ -32,12 +28,20 @@ def index():
 @main.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat():
-	if not current_user.is_authenticated:
-		return "請先登入，再使用 Chat!"
+
+	# if not current_user.is_authenticated:
+	# 	return "請先登入，再使用 Chat!"
+	
 	msg = "You're in the chatroom!"
-	# user = next((user for user in users.values() if user.id == current_user.id), None)
-	# print(current_user.id)
-	# print(current_user.username)
+
+	# response = make_response(render_template('chat.html', msg=msg))
+	
+	# # Set Cache-Control headers
+	# response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+
+	# response.headers["Pragma"] = "no-cache"  # for HTTP 1.0 compatibility
+
+	# return response
 	return render_template('chat.html', msg=msg)
 
 
@@ -45,7 +49,9 @@ def chat():
 # @login_required
 def logout():
 	
-	username = current_user.username.capitalize()
-	logout_user()
-	flash(f'{username}, 你已經被登出！', 'info')
+	if current_user.is_authenticated:
+		username = current_user.username.capitalize()
+		logout_user()
+		flash(f'{username}, 你已經被登出！', 'info')
+		return redirect(url_for('main.index'))
 	return redirect(url_for('main.index'))
