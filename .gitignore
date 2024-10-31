@@ -4,3 +4,4 @@ flask_session/
 .DS_Store
 environVar.txt
 wsgi.py
+.gitignore
