@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}chatroom{% endblock %}
+
+{% block content %} 
+
+	<h2>{{ msg }}</h2>
+	<p><button onclick="window.location.href='{{ url_for('main.index')}}'">登 出</button></p>
+	
+	<div>
+		
+	</div>
+	
+
+{% endblock %} 
